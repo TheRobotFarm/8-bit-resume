@@ -1,0 +1,47 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Outfit:wght@300;400;600;800&family=Press+Start+2P&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-[#0d1117] text-[#e8e8e8] overflow-x-hidden antialiased;
+    font-family: 'Outfit', sans-serif;
+  }
+}
+
+@layer components {
+  .nav-pixel-btn {
+    @apply relative inline-block px-4 py-2 border-2 border-[#4ecdc4] bg-[#0d1117] text-[#4ecdc4] text-[10px] uppercase transition-colors hover:bg-[#4ecdc4] hover:text-[#0d1117];
+    font-family: 'Press Start 2P', monospace;
+  }
+  
+  .pixel-dialog {
+    @apply relative p-4 border-2 border-white/20 bg-[#0d1117]/80 backdrop-blur-sm self-start shadow-[8px_8px_0_0_rgba(0,0,0,0.5)];
+  }
+
+  .section-bg {
+    @apply relative bg-cover bg-center bg-no-repeat bg-fixed;
+  }
+  
+  .section-bg::before {
+    content: '';
+    @apply absolute inset-0 bg-[#0d1117]/80 z-0;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #0d1117;
+}
+::-webkit-scrollbar-thumb {
+  background: #4ecdc4;
+  border-radius: 0;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #ffd700;
+}
