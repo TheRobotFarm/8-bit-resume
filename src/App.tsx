@@ -124,31 +124,21 @@ export default function App() {
               </p>
             </motion.div>
 
-            <motion.h1
-              initial={{ opacity: 0, y: 20 }}
-              animate={!loading ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.8, delay: 0.4 }}
-              className="text-[#ffd700] text-4xl sm:text-6xl md:text-7xl lg:text-8xl mb-6 leading-tight"
-              style={{ fontFamily: "'Press Start 2P', monospace" }}
-            >
-              James
-              <br />
-              Pellegrini
-            </motion.h1>
-
+            {/* Hero Profile Video Replacement */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={!loading ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.8, delay: 0.6 }}
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={!loading ? { opacity: 1, scale: 1 } : {}}
+              transition={{ duration: 0.8, delay: 0.4 }}
+              className="w-full max-w-2xl sm:max-w-3xl mx-auto mb-6 flex justify-center items-center pointer-events-none"
             >
-              <p
-                className="text-[#4ecdc4] text-[13px] sm:text-[15px] mb-6 leading-loose"
-                style={{ fontFamily: "'Press Start 2P', monospace" }}
-              >
-                Content Manager & Brand Enthusiast
-                <br />
-                <span className="text-[#ffb347]">Shopify Ninja</span>
-              </p>
+              <video 
+                src="/artifacts/title_screen.mp4" 
+                autoPlay 
+                loop 
+                muted 
+                playsInline
+                className="w-full max-h-[400px] object-contain mix-blend-lighten drop-shadow-[0_0_15px_rgba(78,205,196,0.2)]"
+              />
             </motion.div>
 
             <motion.div

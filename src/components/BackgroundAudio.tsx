@@ -1,39 +1,113 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import { Play, Pause, Music } from "lucide-react";
 
 export default function BackgroundAudio() {
   const audioRef = useRef<HTMLAudioElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [hasInteracted, setHasInteracted] = useState(false);
 
   useEffect(() => {
-    if (audioRef.current) {
+    if (audioRef.current && videoRef.current) {
       audioRef.current.volume = 0.6;
       
-      const playAudio = () => {
-        if (audioRef.current) {
-          audioRef.current.play().catch(() => {
-            // Browser blocked autoplay; it will play on next interaction due to the event listener below
-          });
+      const tryAutoplay = async () => {
+        try {
+          await audioRef.current?.play();
+          videoRef.current?.play();
+          setIsPlaying(true);
+          setHasInteracted(true);
+        } catch (err) {
+          // Autoplay blocked
+          console.warn("Autoplay prevented, awaiting user interaction");
         }
       };
       
-      // Attempt to play immediately
-      playAudio();
+      tryAutoplay();
       
-      // Fallback for browsers that require user interaction
-      document.body.addEventListener('click', playAudio, { once: true });
-      document.body.addEventListener('touchstart', playAudio, { once: true });
+      const handleFirstClick = () => {
+        if (!hasInteracted) {
+          tryAutoplay();
+        }
+      };
+
+      document.body.addEventListener('click', handleFirstClick, { once: true });
+      document.body.addEventListener('touchstart', handleFirstClick, { once: true });
       
       return () => {
-        document.body.removeEventListener('click', playAudio);
-        document.body.removeEventListener('touchstart', playAudio);
+        document.body.removeEventListener('click', handleFirstClick);
+        document.body.removeEventListener('touchstart', handleFirstClick);
       };
     }
-  }, []);
+  }, [hasInteracted]);
+
+  const togglePlay = () => {
+    if (audioRef.current && videoRef.current) {
+      if (isPlaying) {
+        audioRef.current.pause();
+        videoRef.current.pause();
+        setIsPlaying(false);
+      } else {
+        audioRef.current.play();
+        videoRef.current.play();
+        setIsPlaying(true);
+      }
+    }
+  };
 
   return (
-    <audio 
-      ref={audioRef} 
-      src="/artifacts/Ronnie Guitar Line (Cover).mp3" 
-      loop 
-    />
+    <div className="flex flex-col items-center justify-center my-8">
+      <audio 
+        ref={audioRef} 
+        src="/artifacts/Ronnie Guitar Line (Cover).mp3" 
+        loop 
+      />
+      
+      {/* Theme-based Retro Boombox Frame around Video */}
+      <div className="relative pixel-dialog border-4 border-[#ffd700] p-4 bg-[#0d1117]/80 inline-flex flex-col sm:flex-row items-center gap-6 shadow-[0_0_20px_rgba(255,215,0,0.15)]">
+        
+        {/* CRT Screen Wrapper */}
+        <div className="relative w-32 h-32 sm:w-40 sm:h-40 border-4 border-[#4ecdc4]/40 bg-black rounded-sm overflow-hidden" style={{ boxShadow: "inset 0 0 10px rgba(0,0,0,0.8)" }}>
+          <video 
+            ref={videoRef}
+            src="/artifacts/music_player.mp4" 
+            loop 
+            muted 
+            playsInline
+            className={`w-full h-full object-cover mix-blend-lighten filter contrast-125 saturate-150 transition-opacity duration-300 ${isPlaying ? 'opacity-100' : 'opacity-40 grayscale'}`}
+          />
+          {/* Scanline overlay */}
+          <div className="absolute inset-0 z-10 pointer-events-none opacity-20" style={{ backgroundImage: 'linear-gradient(transparent 50%, rgba(0,0,0,0.8) 50%)', backgroundSize: '100% 4px' }} />
+        </div>
+
+        {/* Console Controls */}
+        <div className="flex flex-col items-center sm:items-start justify-center gap-4">
+          <div className="flex items-center gap-2 mb-2">
+            <Music size={12} className="text-[#ffb347] animate-pulse" />
+            <h3 className="text-[#ffd700] text-[10px]" style={{ fontFamily: "'Press Start 2P', monospace" }}>
+              BGM.TRACK
+            </h3>
+          </div>
+          
+          <button 
+            onClick={togglePlay}
+            className="flex items-center justify-center gap-3 px-4 py-3 bg-[#0d1117] hover:bg-[#4ecdc4]/20 border-2 border-[#4ecdc4] text-[#4ecdc4] hover:text-[#ffd700] hover:border-[#ffd700] transition-colors cursor-pointer active:scale-95"
+            style={{ fontFamily: "'Press Start 2P', monospace" }}
+          >
+            {isPlaying ? (
+              <>
+                <Pause size={14} className="fill-current" />
+                <span className="text-[8px] sm:text-[10px] leading-none pt-1">PAUSE</span>
+              </>
+            ) : (
+              <>
+                <Play size={14} className="fill-current" />
+                <span className="text-[8px] sm:text-[10px] leading-none pt-1">PLAY</span>
+              </>
+            )}
+          </button>
+        </div>
+      </div>
+    </div>
   );
 }
