@@ -4,7 +4,7 @@ import { Play, Pause, Music } from "lucide-react";
 export default function BackgroundAudio() {
   const audioRef = useRef<HTMLAudioElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
-  const [isPlaying, setIsPlaying] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(true);
   const [hasInteracted, setHasInteracted] = useState(false);
 
   useEffect(() => {
@@ -71,6 +71,7 @@ export default function BackgroundAudio() {
           <video
             ref={videoRef}
             src="/artifacts/music_player.mp4"
+            autoPlay
             loop
             muted
             playsInline
