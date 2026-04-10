@@ -108,6 +108,22 @@ export default function App() {
         <div className="absolute inset-0 bg-gradient-to-t from-[#0d1117] via-transparent to-transparent" />
         <StarField count={40} />
 
+        {/* "Player 1 Ready" — below nav, above video */}
+        <div className="relative z-10 pt-20 pb-4 flex justify-center">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={!loading ? { opacity: 1, scale: 1 } : {}}
+            transition={{ duration: 0.8, delay: 0.2 }}
+          >
+            <p
+              className="text-[#4ecdc4] text-[13px] sm:text-[15px] tracking-widest uppercase animate-[pulse_2.5s_cubic-bezier(0.4,0,0.6,1)_infinite]"
+              style={{ fontFamily: "'Press Start 2P', monospace" }}
+            >
+              &gt; Player 1 Ready
+            </p>
+          </motion.div>
+        </div>
+
         {/* Full-width title screen video */}
         <motion.div
           initial={{ opacity: 0 }}
@@ -144,19 +160,6 @@ export default function App() {
         {/* Hero content */}
         <div className="relative z-10 flex-grow flex flex-col items-center justify-center container py-10 px-8 mx-auto text-center w-full">
           <div className="max-w-5xl flex flex-col items-center">
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={!loading ? { opacity: 1, scale: 1 } : {}}
-              transition={{ duration: 0.8, delay: 0.2 }}
-            >
-              <p
-                className="text-[#4ecdc4] text-[13px] sm:text-[15px] mb-8 tracking-widest uppercase animate-[pulse_2.5s_cubic-bezier(0.4,0,0.6,1)_infinite]"
-                style={{ fontFamily: "'Press Start 2P', monospace" }}
-              >
-                &gt; Player 1 Ready
-              </p>
-            </motion.div>
-
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={!loading ? { opacity: 1, y: 0 } : {}}
