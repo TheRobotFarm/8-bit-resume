@@ -15,7 +15,7 @@ export default function PixelNav() {
   return (
     <nav className={cn(
       "fixed top-0 left-0 right-0 z-50 transition-all duration-300 px-4 py-3 flex justify-between items-center",
-      scrolled ? "bg-[#0d1117]/90 backdrop-blur-md border-b-2 border-[#4ecdc4]/20" : "bg-transparent"
+      scrolled ? "bg-[#0d1117]/95 backdrop-blur-md border-b-2 border-[#4ecdc4]/20" : "bg-[#0d1117]/70 backdrop-blur-sm border-b border-[#4ecdc4]/10"
     )}>
       <div className="text-[#ffd700] text-xs font-bold" style={{ fontFamily: "'Press Start 2P', monospace" }}>
         JP_

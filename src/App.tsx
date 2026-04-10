@@ -137,7 +137,9 @@ export default function App() {
             loop
             muted
             playsInline
+            disablePictureInPicture
             className="w-full object-contain mix-blend-lighten"
+            style={{ pointerEvents: 'none', WebkitUserSelect: 'none' }}
           />
           {/* 8-bit pixel top fade */}
           <div

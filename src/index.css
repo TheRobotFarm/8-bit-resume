@@ -9,6 +9,13 @@
     @apply bg-[#0d1117] text-[#e8e8e8] overflow-x-hidden antialiased;
     font-family: 'Outfit', sans-serif;
   }
+
+  /* Suppress native browser video controls overlay on mobile */
+  video::-webkit-media-controls,
+  video::-webkit-media-controls-enclosure,
+  video::-webkit-media-controls-overlay-play-button {
+    display: none !important;
+  }
 }
 
 @layer components {
