@@ -91,7 +91,6 @@ export default function App() {
   return (
     <div className="bg-[#0d1117] min-h-screen text-[#e8e8e8] font-sans selection:bg-[#ffb347] selection:text-[#0d1117]">
       <PixelLoadingScreen onComplete={() => setLoading(false)} />
-      <BackgroundAudio />
       <PixelNav />
 
       {/* ═══════════════════════════════════════════════
@@ -99,7 +98,7 @@ export default function App() {
       ═══════════════════════════════════════════════ */}
       <section
         id="hero"
-        className="relative min-h-screen flex items-center justify-center overflow-hidden"
+        className="relative min-h-screen flex flex-col overflow-hidden"
       >
         <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
@@ -109,7 +108,41 @@ export default function App() {
         <div className="absolute inset-0 bg-gradient-to-t from-[#0d1117] via-transparent to-transparent" />
         <StarField count={40} />
 
-        <div className="relative z-10 container py-20 px-8 mx-auto flex flex-col items-center text-center w-full">
+        {/* Full-width title screen video */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={!loading ? { opacity: 1 } : {}}
+          transition={{ duration: 0.8, delay: 0.4 }}
+          className="relative z-10 w-full flex-shrink-0 pointer-events-none"
+        >
+          <video
+            src="/artifacts/title_screen.mp4"
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="w-full object-contain mix-blend-lighten"
+          />
+          {/* 8-bit pixel top fade */}
+          <div
+            className="absolute top-0 left-0 right-0 pointer-events-none"
+            style={{
+              height: '64px',
+              background: 'linear-gradient(to bottom, #0d1117 0px, #0d1117 8px, rgba(13,17,23,0.875) 8px, rgba(13,17,23,0.875) 16px, rgba(13,17,23,0.75) 16px, rgba(13,17,23,0.75) 24px, rgba(13,17,23,0.625) 24px, rgba(13,17,23,0.625) 32px, rgba(13,17,23,0.5) 32px, rgba(13,17,23,0.5) 40px, rgba(13,17,23,0.375) 40px, rgba(13,17,23,0.375) 48px, rgba(13,17,23,0.25) 48px, rgba(13,17,23,0.25) 56px, rgba(13,17,23,0.125) 56px, rgba(13,17,23,0.125) 64px, transparent 64px)',
+            }}
+          />
+          {/* 8-bit pixel bottom fade */}
+          <div
+            className="absolute bottom-0 left-0 right-0 pointer-events-none"
+            style={{
+              height: '64px',
+              background: 'linear-gradient(to top, #0d1117 0px, #0d1117 8px, rgba(13,17,23,0.875) 8px, rgba(13,17,23,0.875) 16px, rgba(13,17,23,0.75) 16px, rgba(13,17,23,0.75) 24px, rgba(13,17,23,0.625) 24px, rgba(13,17,23,0.625) 32px, rgba(13,17,23,0.5) 32px, rgba(13,17,23,0.5) 40px, rgba(13,17,23,0.375) 40px, rgba(13,17,23,0.375) 48px, rgba(13,17,23,0.25) 48px, rgba(13,17,23,0.25) 56px, rgba(13,17,23,0.125) 56px, rgba(13,17,23,0.125) 64px, transparent 64px)',
+            }}
+          />
+        </motion.div>
+
+        {/* Hero content */}
+        <div className="relative z-10 flex-grow flex flex-col items-center justify-center container py-10 px-8 mx-auto text-center w-full">
           <div className="max-w-5xl flex flex-col items-center">
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
@@ -124,28 +157,11 @@ export default function App() {
               </p>
             </motion.div>
 
-            {/* Hero Profile Video Replacement */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={!loading ? { opacity: 1, scale: 1 } : {}}
-              transition={{ duration: 0.8, delay: 0.4 }}
-              className="w-full max-w-2xl sm:max-w-3xl mx-auto mb-6 flex justify-center items-center pointer-events-none"
-            >
-              <video 
-                src="/artifacts/title_screen.mp4" 
-                autoPlay 
-                loop 
-                muted 
-                playsInline
-                className="w-full max-h-[400px] object-contain mix-blend-lighten drop-shadow-[0_0_15px_rgba(78,205,196,0.2)]"
-              />
-            </motion.div>
-
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={!loading ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.8, delay: 0.8 }}
-              className="flex flex-col items-center gap-6 mt-8"
+              className="flex flex-col items-center gap-6"
               style={{ fontFamily: "'Press Start 2P', monospace" }}
             >
               <a
@@ -485,6 +501,11 @@ export default function App() {
           © {new Date().getFullYear()} James Pellegrini // All rights reserved
         </p>
       </footer>
+
+      {/* BGM Player — pinned to bottom of page */}
+      <div className="bg-[#0d1117] pb-10 flex justify-center">
+        <BackgroundAudio />
+      </div>
     </div>
   );
 }

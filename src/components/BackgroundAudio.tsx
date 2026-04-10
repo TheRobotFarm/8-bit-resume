@@ -56,23 +56,23 @@ export default function BackgroundAudio() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center my-8">
-      <audio 
-        ref={audioRef} 
-        src="/artifacts/Ronnie Guitar Line (Cover).mp3" 
-        loop 
+    <div className="flex flex-col items-center justify-center w-[90vw] sm:w-[25vw] sm:min-w-[260px]">
+      <audio
+        ref={audioRef}
+        src="/artifacts/Ronnie Guitar Line (Cover).mp3"
+        loop
       />
-      
+
       {/* Theme-based Retro Boombox Frame around Video */}
-      <div className="relative pixel-dialog border-4 border-[#ffd700] p-4 bg-[#0d1117]/80 inline-flex flex-col sm:flex-row items-center gap-6 shadow-[0_0_20px_rgba(255,215,0,0.15)]">
-        
-        {/* CRT Screen Wrapper */}
-        <div className="relative w-32 h-32 sm:w-40 sm:h-40 border-4 border-[#4ecdc4]/40 bg-black rounded-sm overflow-hidden" style={{ boxShadow: "inset 0 0 10px rgba(0,0,0,0.8)" }}>
-          <video 
+      <div className="relative pixel-dialog border-4 border-[#ffd700] p-4 bg-[#0d1117]/80 flex flex-col items-center gap-4 w-full shadow-[0_0_20px_rgba(255,215,0,0.15)]">
+
+        {/* CRT Screen Wrapper — full width of container */}
+        <div className="relative w-full aspect-square border-4 border-[#4ecdc4]/40 bg-black overflow-hidden" style={{ boxShadow: "inset 0 0 10px rgba(0,0,0,0.8)" }}>
+          <video
             ref={videoRef}
-            src="/artifacts/music_player.mp4" 
-            loop 
-            muted 
+            src="/artifacts/music_player.mp4"
+            loop
+            muted
             playsInline
             className={`w-full h-full object-cover mix-blend-lighten filter contrast-125 saturate-150 transition-opacity duration-300 ${isPlaying ? 'opacity-100' : 'opacity-40 grayscale'}`}
           />
@@ -81,17 +81,17 @@ export default function BackgroundAudio() {
         </div>
 
         {/* Console Controls */}
-        <div className="flex flex-col items-center sm:items-start justify-center gap-4">
-          <div className="flex items-center gap-2 mb-2">
+        <div className="flex flex-col items-center justify-center gap-3 w-full">
+          <div className="flex items-center gap-2">
             <Music size={12} className="text-[#ffb347] animate-pulse" />
             <h3 className="text-[#ffd700] text-[10px]" style={{ fontFamily: "'Press Start 2P', monospace" }}>
               BGM.TRACK
             </h3>
           </div>
-          
-          <button 
+
+          <button
             onClick={togglePlay}
-            className="flex items-center justify-center gap-3 px-4 py-3 bg-[#0d1117] hover:bg-[#4ecdc4]/20 border-2 border-[#4ecdc4] text-[#4ecdc4] hover:text-[#ffd700] hover:border-[#ffd700] transition-colors cursor-pointer active:scale-95"
+            className="flex items-center justify-center gap-3 px-4 py-3 w-full bg-[#0d1117] hover:bg-[#4ecdc4]/20 border-2 border-[#4ecdc4] text-[#4ecdc4] hover:text-[#ffd700] hover:border-[#ffd700] transition-colors cursor-pointer active:scale-95"
             style={{ fontFamily: "'Press Start 2P', monospace" }}
           >
             {isPlaying ? (
