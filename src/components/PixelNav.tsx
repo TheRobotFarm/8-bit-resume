@@ -17,7 +17,7 @@ export default function PixelNav() {
       "fixed top-0 left-0 right-0 z-50 transition-all duration-300 px-4 py-3 flex justify-between items-center",
       scrolled ? "bg-[#0d1117]/95 backdrop-blur-md border-b-2 border-[#4ecdc4]/20" : "bg-[#0d1117]/70 backdrop-blur-sm border-b border-[#4ecdc4]/10"
     )}>
-      <div className="text-[#ffd700] text-xs font-bold" style={{ fontFamily: "'Press Start 2P', monospace" }}>
+      <div className="text-[#ffd700] text-[24px] font-bold" style={{ fontFamily: "'Press Start 2P', monospace" }}>
         JP_
       </div>
       <div className="hidden md:flex gap-6">
@@ -28,7 +28,7 @@ export default function PixelNav() {
           { id: "gallery", label: "gallery" },
           { id: "contact", label: "contact" }
         ].map(item => (
-          <a key={item.id} href={`#${item.id}`} className="text-[#4ecdc4] text-[8px] uppercase hover:text-[#ffd700] transition-colors" style={{ fontFamily: "'Press Start 2P', monospace" }}>
+          <a key={item.id} href={`#${item.id}`} className="text-[#4ecdc4] text-[16px] uppercase hover:text-[#ffd700] transition-colors" style={{ fontFamily: "'Press Start 2P', monospace" }}>
             {item.label}
           </a>
         ))}
